@@ -8,10 +8,11 @@ int main(int argc, char *argv[]){
 	int flag = 1;
  // Buffer tipo int
 	int B[64] = {0};
+	unsigned char S [1600] = {'0'};
 //bandera para llenar ceros
 	int a = 1;
 //Contadores IOTA
-  	int r;int k;int k1;int k2;int h; int i; int j; int l; int to; int b;int p;
+  	int r;int k;int k1;int k2;int h; int i; int j; int l; int to; int b;int p;int o;
 //puntero a file
 	FILE *file;
   //MATRICES AUXILIARES
@@ -50,7 +51,7 @@ int main(int argc, char *argv[]){
 			D[k2] = (unsigned char *)malloc(64*sizeof(unsigned char));
 	}
 
-	unsigned char *buffer = (unsigned char *) malloc (8*sizeof (unsigned char));
+
 
  //////////////////////////
 
@@ -70,10 +71,25 @@ int main(int argc, char *argv[]){
 		b= ((to*8)%64)/8;
         	rewind(file); 
 	}
-
-	for(h=0; h<8; h++){
-
-		fread(buffer,8,1,file);
+	unsigned char *buffer = (unsigned char *) malloc (200*sizeof (unsigned char));
+	
+	if (p >= 1){
+		
+		for(o= 0; o<p; o++){
+			for(h=0; h<8; h++){
+				fread(buffer,8,1,file);
+				S[0+8*h] = 0b0001 & buffer[h];
+				S[1+8*h] = 0b0010 & buffer[h];
+				S[2+8*h] = 0b0011 & buffer[h];
+				S[3+8*h] = 0b0100 & buffer[h];
+				S[4+8*h] = 0b0101 & buffer[h];
+				S[5+8*h] = 0b0110 & buffer[h];
+				S[6+8*h] = 0b0111 & buffer[h];
+				S[7+8*h] = 0b1000 & buffer[h];
+			}
+		}	
+	}
+	for(h=0; h<200; h++){
 		S[0+8*h] = 0b0001 & buffer[h];
 		S[1+8*h] = 0b0010 & buffer[h];
 		S[2+8*h] = 0b0011 & buffer[h];
@@ -283,7 +299,7 @@ unsigned char * keccak-p(unsigned char *S , int nr ){
 	int b  = countof(S);
 	int j; int i; int a; int k;
 	int w = 64; // No estoy seguro de esta
-	int l = log10 (w)/log10(2); // Log2 (w)
+	int l = ( int ) log10 (w)/log10(2); // Log2 (w)
 	for (j = 0; j<5; j++){
 				for (i = 0; i<5; i++){
 					if (i == 2 & j == 3){
