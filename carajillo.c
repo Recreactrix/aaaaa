@@ -8,7 +8,7 @@ int main(int argc, char *argv[]){
 	int flag = 1;
  // Buffer tipo int
 	int B[64] = {0};
-	unsigned char S [1600] = {'0'};
+	unsigned char *S = (unsigned char *) malloc ();
 //bandera para llenar ceros
 	int a = 1;
 //Contadores IOTA
@@ -76,16 +76,29 @@ int main(int argc, char *argv[]){
 	if (p >= 1){
 		
 		for(o= 0; o<p; o++){
+			fread(buffer,8,1,file);
 			for(h=0; h<8; h++){
-				fread(buffer,8,1,file);
-				S[0+8*h] = 0b0001 & buffer[h];
-				S[1+8*h] = 0b0010 & buffer[h];
-				S[2+8*h] = 0b0011 & buffer[h];
-				S[3+8*h] = 0b0100 & buffer[h];
-				S[4+8*h] = 0b0101 & buffer[h];
-				S[5+8*h] = 0b0110 & buffer[h];
-				S[6+8*h] = 0b0111 & buffer[h];
-				S[7+8*h] = 0b1000 & buffer[h];
+				
+				S[0+8*h*o] = 0b0001 & buffer[h];
+				S[1+8*h*o] = 0b0010 & buffer[h];
+				S[2+8*h*o] = 0b0011 & buffer[h];
+				S[3+8*h*o] = 0b0100 & buffer[h];
+				S[4+8*h*o] = 0b0101 & buffer[h];
+				S[5+8*h*o] = 0b0110 & buffer[h];
+				S[6+8*h*o] = 0b0111 & buffer[h];
+				S[7+8*h*o] = 0b1000 & buffer[h];
+			}
+			for (j = 0; j<5; j++){
+				for (i = 0; i<5; i++){
+					if (i == 2 & j == 3){
+						a = 0;
+						break;
+					}
+					else{
+						for (k = 0; k<64; k++){
+							A[i][j][k] = S[k];
+						}
+					}
 			}
 		}	
 	}
@@ -109,18 +122,7 @@ int main(int argc, char *argv[]){
 //Padding si es necesario
 	for(int e = 0; e < p ; e++){
 		while (a != 0){
-			for (j = 0; j<5; j++){
-				for (i = 0; i<5; i++){
-					if (i == 2 & j == 3){
-						a = 0;
-						break;
-					}
-					else{
-						for (k = 0; k<64; k++){
-							A[i][j][k] = S[k];
-						}
-					}
-				}
+			
 				if (i == 2 & j == 3){
 					a = 0;
 					break;
