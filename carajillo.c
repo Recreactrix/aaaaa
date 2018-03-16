@@ -260,12 +260,17 @@ void theta(unsigned char ***A1, unsigned char ***A, unsigned char **C, unsigned 
 		}
 	}
 }
-/*unsigned char * pad(x,m){
+unsigned char * pad(x,m){
+	
 	j = modulo((-m-2),x);
-	for (l = 0;l<j;l++){
-		P = 
+	unsigned char * P = malloc ((j+2)*sizeof(unsigned char))
+	for (l = 1;l<j-1;l++){
+		P [j] = 0; 
 	}
-}*/
+	P[0] = 1;
+	P[j-1] = 1;
+	return *P;
+}
 unsigned char * keccak-p(unsigned char *S , int nr ){
 	int b  = countof(S);
 	int j; int i; int a; int k;
@@ -305,9 +310,9 @@ unsigned char * keccak-p(unsigned char *S , int nr ){
 				}
 			}
 		}
-	for (ir = 12 + 2*l- nr; 12+2*l - 1; ir++){
+	for (ir = 12 + 2*l- nr; ir <  12+2*l - 1; ir++){
 		A = iota(x(pi(theta(A))), ir);
 	}
 	/*Convertir A a un string S*/
 }
-
+//nr = 24 eso es fijo dijo el profesor
