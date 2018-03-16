@@ -272,9 +272,12 @@ unsigned char * pad(x,m){
 	return *P;
 }
 unsigned char * sponge(unsigned char * N, unsigned int d, int r){
-	unsigned char * Paux = malloc (200*sizeof(unsigned char));
-	*Paux = *N;
-	strcat(Paux,pad(r,N))
+	unsigned char * P = malloc (200*sizeof(unsigned char));
+	P = N;
+	strcat(P,pad(r,N));
+	n = strlen(P) / r;
+	c = 1800 - r
+	return Paux;
 }
 unsigned char * keccak-p(unsigned char *S , int nr ){
 	int b  = countof(S);
